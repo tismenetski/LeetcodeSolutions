@@ -33,6 +33,135 @@ class Solution4{
     }
 } //Not Started
 
+
+class Solution21{
+
+    /*
+
+    Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
+    Example:
+    Input: 1->2->4, 1->3->4
+    Output: 1->1->2->3->4->4
+      */
+
+    /*
+    Success
+    Details
+    Runtime: 0 ms, faster than 100.00% of Java online submissions for Merge Two Sorted Lists.
+    Memory Usage: 38.8 MB, less than 19.53% of Java online submissions for Merge Two Sorted Lists.
+     */
+
+    public static void main(String[] args) {
+
+        //List 1
+        ListNode listNode = new ListNode(1);
+        ListNode listNode2 = new ListNode(2);
+        ListNode listNode3= new ListNode(4);
+
+        //Link Nodes
+        listNode.next= listNode2;
+        listNode2.next = listNode3;
+
+        //List 2
+        ListNode listNode4 = new ListNode(1);
+        ListNode listNode5 = new ListNode(3);
+        ListNode listNode6 = new ListNode(4);
+
+        //Link Nodes
+        listNode4.next = listNode5;
+        listNode5.next = listNode6;
+
+        //Results
+        ListNode result = mergeTwoLists(listNode,listNode4);
+        result.printList(result);
+    }
+
+    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+            ListNode answer=null;
+            ListNode tmp=null;
+            if (l1==null) return l2;
+            if (l2==null) return l1;
+            while(l1!=null||l2!=null)
+            {
+                if (l1!=null&&l2!=null)
+                {
+                    if (l1.val>l2.val)
+                    {
+                        if (answer==null)
+                        {
+                            answer = new ListNode(l2.val);
+                            tmp = answer;
+                            l2 = l2.next;
+                        }
+                        else
+                        {
+                            answer.next = new ListNode(l2.val);
+                            answer.next.next = null;
+                            answer = answer.next;
+                            l2=l2.next;
+
+                        }
+                    }
+                    else if (l2.val>l1.val)
+                    {
+                        if (answer==null)
+                        {
+                            answer = new ListNode(l1.val);
+                            tmp = answer;
+                            l1 = l1.next;
+                        }
+                        else
+                        {
+                            answer.next = new ListNode(l1.val);
+                            answer.next.next = null;
+                            answer = answer.next;
+                            l1 = l1.next;
+
+                        }
+                    }
+                    else
+                    {
+                        if (answer==null)
+                        {
+                            answer = new ListNode(l2.val);
+                            tmp = answer;
+                            answer.next = new ListNode(l1.val);
+                            answer.next.next = null;
+                            answer = answer.next;
+
+                            l2 = l2.next;
+                            l1 = l1.next;
+                        }
+                        else
+                        {
+                            answer.next = new ListNode(l2.val);
+                            answer = answer.next;
+                            answer.next = new ListNode(l1.val);
+                            answer.next.next = null;
+                            answer = answer.next;
+
+                            l2 = l2.next;
+                            l1 = l1.next;
+                        }
+                    }
+                }
+                else if (l1!=null)
+                {
+                    answer.next = new ListNode(l1.val);
+                    answer = answer.next;
+                    l1 = l1.next;
+                }
+                else if (l2!=null)
+                {
+                    answer.next = new ListNode(l2.val);
+                    answer = answer.next;
+                    l2 = l2.next;
+                }
+            }
+            return tmp;
+    }
+} //Solved
+
 class Solution83{
 
     /*
@@ -141,6 +270,118 @@ class Solution118 //Solved
         return  lists;
     }
 }
+
+class Solution206{
+
+    /*
+    Success
+    Details
+    Runtime: 0 ms, faster than 100.00% of Java online submissions for Reverse Linked List.
+    Memory Usage: 39.3 MB, less than 5.04% of Java online submissions for Reverse Linked List.
+
+     */
+    public static void main(String[] args) {
+        ListNode listNode = new ListNode(1);
+        ListNode listNode2 = new ListNode(2);
+        ListNode listNode3= new ListNode(3);
+        ListNode listNode4 = new ListNode(4);
+        ListNode listNode5 = new ListNode(5);
+        //ListNode listNode6 = new ListNode(6);
+        listNode.next= listNode2;
+        listNode2.next = listNode3;
+        listNode3.next =listNode4;
+        listNode4.next = listNode5;
+        //listNode5.next = listNode6;
+        ListNode result = reverseList(listNode);
+        result.printList(result);
+    }
+
+    public static ListNode reverseList(ListNode head) {
+
+        ListNode reversedList = null;
+
+        while(head!=null)
+        {
+            if (reversedList==null)
+            {
+                reversedList = new ListNode(head.val);
+                reversedList.next=null;
+                head = head.next;
+            }
+            else
+            {
+                ListNode newHead = new ListNode(head.val); // Create a new node that will be the new head
+                newHead.next = reversedList;
+                reversedList = newHead;
+                head= head.next;
+            }
+        }
+
+        return  reversedList;
+    }
+} //Solved
+
+class Solution237{
+
+    /*
+    Write a function to delete a node (except the tail) in a singly linked list, given only access to that node.
+
+    Given linked list -- head = [4,5,1,9], which looks like following:
+
+                4----->5----->1----->9
+
+    Example 1:
+
+    Input: head = [4,5,1,9], node = 5
+    Output: [4,1,9]
+    Explanation: You are given the second node with value 5, the linked list should become 4 -> 1 -> 9 after calling your function.
+    Example 2:
+
+    Input: head = [4,5,1,9], node = 1
+    Output: [4,5,9]
+    Explanation: You are given the third node with value 1, the linked list should become 4 -> 5 -> 9 after calling your function.
+
+    Note:
+
+    The linked list will have at least two elements.
+    All of the nodes' values will be unique.
+    The given node will not be the tail and it will always be a valid node of the linked list.
+    Do not return anything from your function.
+
+     */
+/*
+        Success
+        Details
+        Runtime: 0 ms, faster than 100.00% of Java online submissions for Delete Node in a Linked List.
+        Memory Usage: 39.1 MB, less than 5.09% of Java online submissions for Delete Node in a Linked List.
+        Next challenges:
+ */
+
+
+
+    public static void main(String[] args) {
+        ListNode listNode = new ListNode(4);
+        ListNode listNode2 = new ListNode(5);
+        ListNode listNode3= new ListNode(1);
+        ListNode listNode4 = new ListNode(9);
+        //ListNode listNode5 = new ListNode(5);
+        //ListNode listNode6 = new ListNode(6);
+        listNode.next= listNode2;
+        listNode2.next = listNode3;
+        listNode3.next =listNode4;
+        //listNode4.next = listNode5;
+        //listNode5.next = listNode6;
+         deleteNode(listNode);
+
+    }
+
+    public static void deleteNode(ListNode node) {
+
+        ListNode tmp = node.next.next;
+        node.val = node.next.val;
+        node.next = tmp;
+    }
+} //Solved
 
 class Solution771 {
     /*
