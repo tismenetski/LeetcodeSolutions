@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Main {
@@ -18,6 +19,112 @@ public class Main {
 
 
 
+    }
+}
+
+class Solution2{
+
+    /*
+    You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+    You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+    Example:
+
+    Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+    Output: 7 -> 0 -> 8
+    Explanation: 342 + 465 = 807.
+     */
+    public static void main(String[] args) {
+
+
+        //List 1
+        ListNode listNode = new ListNode(9);
+        ListNode listNode2 = new ListNode(8);
+        //ListNode listNode3= new ListNode(3);
+
+        //Link Nodes
+        listNode.next= listNode2;
+        //listNode2.next = listNode3;
+
+        //List 2
+        ListNode listNode4 = new ListNode(1);
+        //ListNode listNode5 = new ListNode(6);
+        //ListNode listNode6 = new ListNode(4);
+
+        //Link Nodes
+        //listNode4.next = listNode5;
+        //listNode5.next = listNode6;
+
+        //Results
+        ListNode result = addTwoNumbers(listNode,listNode4);
+        result.printList(result);
+    }
+
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode answer=null;
+        ListNode tmp=null;
+        if (l1==null) return l2;
+        if (l2==null) return l1;
+        while(l1!=null||l2!=null)
+        {
+            if (l1!=null&&l2!=null)
+            {
+                if (answer==null) // Initialization
+                {
+                    tmp = new ListNode(l1.val+l2.val);
+                    if (tmp.val>9)
+                    {
+                        tmp.val  = l1.val+l2.val-10;
+                        tmp.next = new ListNode(1);
+                        answer = tmp;
+                    }
+                    else
+                    {
+                        answer = tmp;
+                    }
+                    l1= l1.next;
+                    l2= l2.next;
+
+                }
+                else
+                {
+                    if (tmp.next==null) // If on the previous iteration the result was not greater than 9
+                    {
+                        tmp.next = new ListNode(l1.val+l2.val);
+                        tmp = tmp.next;
+                        if (tmp.val>9)
+                        {
+                            tmp.val  -=10;
+                            tmp.next = new ListNode(1);
+                        }
+                    }
+                    else
+                    {
+                        tmp = tmp.next;
+                        tmp.val+= l2.val+l1.val;
+                        if (tmp.val>9)
+                        {
+                            tmp.val  -=10;
+                            tmp.next = new ListNode(1);
+                        }
+                    }
+                    l1= l1.next;
+                    l2= l2.next;
+                }
+            }
+            else if (l1!=null)
+            {
+                tmp.next = new ListNode(l1.val);
+                tmp = tmp.next;
+                l1 = l1.next;
+            }
+            else if (l2!=null)
+            {
+                tmp.next = new ListNode(l2.val);
+                tmp = tmp.next;
+                l2 = l2.next;
+            }
+        }
+        return answer;
     }
 }
 
@@ -321,6 +428,74 @@ class Solution206{
     }
 } //Solved
 
+
+class Solution234{
+/*
+    Given a singly linked list, determine if it is a palindrome.
+    Example 1:
+    Input: 1->2
+    Output: false
+
+    Example 2:
+    Input: 1->2->2->1
+    Output: true
+    Follow up:
+    Could you do it in O(n) time and O(1) space?
+ */
+
+/*
+    26 / 26 test cases passed.
+    Status: Accepted
+    Runtime: 4 ms
+    Memory Usage: 43.1 MB
+ */
+
+    public static void main(String[] args) {
+
+        //Create Nodes
+        ListNode node1 = new ListNode(1);
+        ListNode node2 = new ListNode(0);
+        ListNode node3 = new ListNode(1);
+
+        //Link Nodes
+        node1.next = node2;
+        node2.next = node3;
+
+        boolean result = isPalindrome(node1);
+        System.out.println(result);
+
+    }
+
+    public static boolean isPalindrome(ListNode head) {
+
+        if (head==null) return true;
+        List<Integer> nodes = new ArrayList<>();
+        while(head!=null)
+        {
+            nodes.add(head.val);
+            head = head.next;
+        }
+        if (nodes.size()==1) return true;
+        else if (nodes.size()>1&&nodes.size()%2==0)
+        {
+            Collections.reverse(nodes.subList(nodes.size()/2,nodes.size()));
+            if (nodes.subList(0,nodes.size()/2).equals(nodes.subList(nodes.size()/2,nodes.size())))
+            {
+                return true;
+            }
+        }
+        else if (nodes.size()>1 &&nodes.size()%2!=0)
+        {
+            Collections.reverse(nodes.subList(nodes.size()/2+1,nodes.size()));
+            if (nodes.subList(0,nodes.size()/2).equals(nodes.subList(nodes.size()/2+1,nodes.size())))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+} //Solved
+
 class Solution237{
 
     /*
@@ -380,6 +555,86 @@ class Solution237{
         ListNode tmp = node.next.next;
         node.val = node.next.val;
         node.next = tmp;
+    }
+} //Solved
+
+class Solution728{
+
+    /*
+    Success
+    Details
+    Runtime: 2 ms, faster than 80.58% of Java online submissions for Self Dividing Numbers.
+    Memory Usage: 36.7 MB, less than 6.67% of Java online submissions for Self Dividing Numbers.
+     */
+
+    /*
+    A self-dividing number is a number that is divisible by every digit it contains.
+
+    For example, 128 is a self-dividing number because 128 % 1 == 0, 128 % 2 == 0, and 128 % 8 == 0.
+
+    Also, a self-dividing number is not allowed to contain the digit zero.
+
+    Given a lower and upper number bound, output a list of every possible self dividing number, including the bounds if possible.
+
+    Example 1:
+    Input:
+    left = 1, right = 22
+    Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 15, 22]
+    Note:
+
+    The boundaries of each input argument are 1 <= left <= right <= 10000.
+
+     */
+    public static void main(String[] args) {
+        int left =66;
+        int right =708;
+        List<Integer> result = selfDividingNumbers(left,right);
+        System.out.println(result);
+    }
+
+    public static List<Integer> selfDividingNumbers(int left, int right) {
+        List<Integer> result = new ArrayList<>();
+        for (int i=left;i<=right;)
+        {
+            if (i<10)
+            {
+                result.add(i);
+                i++;
+            }
+            else if (i%10==0)
+            {
+                i++;
+            }
+            else
+            {
+                List<Integer> digits = new ArrayList<>();
+                if (selfDividing(i))
+                {
+                    result.add(i);
+                }
+                i++;
+            }
+        }
+        return result;
+    }
+    public static boolean selfDividing(int num)
+    {
+        int tmp = num;
+        int originalNum = num;
+        while(tmp>0)
+        {
+            tmp = tmp%10;
+
+            if (tmp==0) return false;
+
+            if (originalNum%tmp!=0)
+            {
+                return false;
+            }
+            num = num / 10;
+            tmp =num;
+        }
+        return true;
     }
 } //Solved
 
@@ -471,6 +726,49 @@ class Solution876 {
         return result;
     }
 } //Solved
+
+class Solution1108{
+    /*
+    Given a valid (IPv4) IP address, return a defanged version of that IP address.
+
+    A defanged IP address replaces every period "." with "[.]".
+
+    Example 1:
+
+    Input: address = "1.1.1.1"
+    Output: "1[.]1[.]1[.]1"
+    Example 2:
+
+    Input: address = "255.100.50.0"
+    Output: "255[.]100[.]50[.]0"
+
+    Constraints:
+
+    The given address is a valid IPv4 address.
+
+     */
+
+    /*
+    Success
+    Details
+    Runtime: 0 ms, faster than 100.00% of Java online submissions for Defanging an IP Address.
+    Memory Usage: 36.7 MB, less than 100.00% of Java online submissions for Defanging an IP Address.
+    Next challenges:
+
+
+     */
+    public static void main(String[] args) {
+        String address = "255.100.50.0";
+        String res = defangIPaddr(address);
+        System.out.println(res);
+    }
+
+    public static String defangIPaddr(String address) {
+        return address.replace(".","[.]");
+    }
+
+
+} //Solved
 class Solution1221 {
 
     /*
@@ -510,6 +808,37 @@ class Solution1221 {
         return sum;
     }
 }
+
+class Solution1266{
+
+    public static void main(String[] args) {
+            int[][] points = new int[2][3];
+            points[0][0] = 1;
+        points[0][0] = 1;
+        points[0][1] = 1;
+        points[0][2] = 3;
+        points[1][0] = 4;
+        points[1][1] = -1;
+        points[1][2] = 0;
+        int answer = minTimeToVisitAllPoints(points);
+        System.out.println(answer);
+    }
+
+    public static int minTimeToVisitAllPoints(int[][] points) {
+
+
+        int counter =0;
+        //2D Array  - We must move to each point according to the array indices
+        //The movement can be either upwards or downwards
+        //Each move increment the counter
+
+        for (int i=0,j=0;i<points.length-1;)
+        {
+            int xDiff = points[i+1][j] - points[i][j];
+        }
+        return counter;
+    }
+} //Not Solved
 
 class Solution1290{
 
