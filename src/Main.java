@@ -1,7 +1,6 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -269,6 +268,126 @@ class Solution21{
     }
 } //Solved
 
+class Solution26{
+
+    public static void main(String[] args) {
+        int[] nums  = {0,0,1,1,1,2,2,3,3,4};
+        int[] nums2  = {1,1,2};
+        int[] nums3  = {1,1};
+        int[] nums4  = {1,2};
+        int[] nums5  = {1,1,2,2};
+        int[] nums6 = {1,1,1};
+        int result = removeDuplicates(nums);
+        System.out.println(result);
+        System.out.println();
+        int result2 = removeDuplicates(nums2);
+        System.out.println(result2);
+        System.out.println();
+        int result3 = removeDuplicates(nums3);
+        System.out.println(result3);
+        System.out.println();
+        int result4 = removeDuplicates(nums4);
+        System.out.println(result4);
+        System.out.println();
+        int result5 = removeDuplicates(nums5);
+        System.out.println(result5);
+        System.out.println();
+        int result6 = removeDuplicates(nums6);
+        System.out.println(result6);
+
+    }
+
+    public static int removeDuplicates(int[] nums) {
+
+//        if (nums.length==1) return 1;
+//        int result=0;
+//        for (int i =1 ; i < nums.length;)
+//        {
+//            if(nums[i]==nums[i-1]&&(nums.length-i>1)) // if element equal to previous element
+//            {
+//                int j =i;
+//                while(j<nums.length-1) //Move the element to the end of the array
+//                {
+//                    int tmp = nums[j+1];
+//                        nums[j+1] = nums[j];
+//                        nums[j] = tmp;
+//                        j++;
+//                }
+//
+//            }
+//            else if (nums[i]<nums[i-1])
+//            {
+//                result++;
+//                break;
+//            }
+//            else if (nums.length-i>=1)
+//            {
+//                result++;
+//                i++;
+//                if (i==nums.length&&nums[i-1]!=nums[i-2]) result++;
+//            }
+//            else
+//            {
+//                return result+1;
+//            }
+//        }
+//        System.out.println(java.util.Arrays.toString(nums));
+//
+//        return  result;
+
+        int i = 1, j = 1;
+        for (; i < nums.length; i++)
+            if (nums[i] != nums[i-1])
+                nums[j++] = nums[i];
+        System.out.println(java.util.Arrays.toString(nums));
+        return j;
+    }
+}
+
+class Solution37{
+
+    public static void main(String[] args) {
+        char[][] sudoku = new char[9][9];
+        sudoku[0][0] = '5';sudoku[0][1] = '3';sudoku[0][2] = '.';sudoku[0][3] = '.';sudoku[0][4] = '7';sudoku[0][5] = '.';sudoku[0][6] = '.';sudoku[0][7] = '.';sudoku[0][8] = '.';
+        sudoku[1][0] = '6';sudoku[1][1] = '.';sudoku[1][2] = '.';sudoku[1][3] = '1';sudoku[1][4] = '9';sudoku[1][5] = '5';sudoku[1][6] = '.';sudoku[1][7] = '.';sudoku[1][8] = '.';
+        sudoku[2][0] = '.';sudoku[2][1] = '9';sudoku[2][2] = '8';sudoku[2][3] = '.';sudoku[2][4] = '.';sudoku[2][5] = '.';sudoku[2][6] = '.';sudoku[2][7] = '6';sudoku[2][8] = '.';
+        sudoku[3][0] = '8';sudoku[3][1] = '.';sudoku[3][2] = '.';sudoku[3][3] = '.';sudoku[3][4] = '6';sudoku[3][5] = '.';sudoku[3][6] = '.';sudoku[3][7] = '.';sudoku[3][8] = '3';
+        sudoku[4][0] = '4';sudoku[4][1] = '.';sudoku[4][2] = '.';sudoku[4][3] = '8';sudoku[4][4] = '.';sudoku[4][5] = '3';sudoku[4][6] = '.';sudoku[4][7] = '.';sudoku[4][8] = '1';
+        sudoku[5][0] = '7';sudoku[5][1] = '.';sudoku[5][2] = '.';sudoku[5][3] = '.';sudoku[5][4] = '2';sudoku[5][5] = '.';sudoku[5][6] = '.';sudoku[5][7] = '.';sudoku[5][8] = '6';
+        sudoku[6][0] = '.';sudoku[6][1] = '6';sudoku[6][2] = '.';sudoku[6][3] = '.';sudoku[6][4] = '.';sudoku[6][5] = '.';sudoku[6][6] = '2';sudoku[6][7] = '8';sudoku[6][8] = '.';
+        sudoku[7][0] = '.';sudoku[7][1] = '.';sudoku[7][2] = '.';sudoku[7][3] = '4';sudoku[7][4] = '1';sudoku[7][5] = '9';sudoku[7][6] = '.';sudoku[7][7] = '.';sudoku[7][8] = '5';
+        sudoku[8][0] = '.';sudoku[8][1] = '.';sudoku[8][2] = '.';sudoku[8][3] = '.';sudoku[8][4] = '8';sudoku[8][5] = '.';sudoku[8][6] = '.';sudoku[8][7] = '7';sudoku[8][8] = '9';
+
+        solveSudoku(sudoku);
+    }
+
+    public static void solveSudoku(char[][] board) {
+
+        for (int i = 0; i< board.length ; i++)
+        {
+            for (int j = 0 ; j < board[i].length ; j++)
+            {
+                System.out.print("   " + board[i][j]);
+            }
+            System.out.println();
+        }
+
+        for (int i = 0; i< board.length ; i++)
+        {
+            for (int j = 0 ; j < board[i].length ; j++)
+            {
+
+            }
+
+        }
+    }
+    public static boolean isSolved(char[][] board)
+    {
+        return false;
+    }
+
+}
+
 class Solution83{
 
     /*
@@ -321,6 +440,62 @@ class Solution83{
 
 
 } //Solved
+
+class Solution88{
+
+    public static void main(String[] args) {
+//        int[] nums1 = {1,2,3,0,0,0};
+//        int[] nums2 = {2,5,6};
+        int[] nums1 = {2,0};
+        int[] nums2 = {1};
+        int m = 3;
+        int n = 3;
+        merge(nums1,m,nums2,n);
+    }
+
+
+    public static void merge(int[] nums1, int m, int[] nums2, int n) {
+
+
+            for (int i = 0 ,j=0;i<m+n;)
+            {
+
+                if (nums1[i]>=nums2[j])
+                {
+                    int k = nums1.length-1;
+                    while(k>i)
+                    {
+                        int tmp = nums1[k-1];
+                        nums1[k-1] = nums1[k];
+                        nums1[k] = tmp;
+                        k--;
+                    }
+                    nums1[i] = nums2[j];
+                    i++;
+                    j++;
+                    if (j>=n) break;
+                }
+                else if (nums1[i]<nums2[j])
+                {
+                    if (i-j>=n)
+                    {
+                        nums1[i] = nums2[j];
+                        i++;
+                        j++;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+
+
+            }
+
+
+        System.out.println(java.util.Arrays.toString(nums1));
+    }
+} //HARD - Not Solved
 
 class ListNode
 {
@@ -375,6 +550,202 @@ class Solution118 //Solved
               lists.add(currentList);
         }
         return  lists;
+    }
+}
+
+class Solution203{
+
+    public static void main(String[] args) {
+
+        //Create Nodes
+        ListNode node1 = new ListNode(1);
+        ListNode node2 = new ListNode(1);
+//        ListNode node3 = new ListNode(6);
+//        ListNode node4 = new ListNode(3);
+//        ListNode node5 = new ListNode(4);
+//        ListNode node6 = new ListNode(5);
+//        ListNode node7 = new ListNode(6);
+
+        //Link Nodes
+        node1.next = node2;
+//        node2.next = node3;
+//        node3.next = node4;
+//        node4.next = node5;
+//        node5.next = node6;
+//        node6.next = node7;
+
+        ListNode result = removeElements(node1,1);
+        result.printList(result);
+
+    }
+
+    public static ListNode removeElements(ListNode head, int val) {
+
+        ListNode tmp = head;
+        ListNode prev  = head;
+        if (head==null) return null;
+        if (head.next==null&&head.val == val) return null;
+
+        while(head.next!=null)
+        {
+            prev = head;
+            head = head.next;
+            if (head.val == val)
+            {
+                ListNode temp = head.next;
+                prev.next = temp;
+            }
+        }
+        if (prev.val == val) prev = null;
+        return tmp;
+    }
+
+    //Working but not in all cases -Rewriting the function above
+
+
+//    public static ListNode removeElements(ListNode head, int val) {
+//
+//        ListNode tmp = head;
+//        ListNode prev  = null;
+//        if (head==null) return null;
+//        if (head.next==null&&head.val == val) return null;
+//
+//        while(head!=null)
+//        {
+//            if (head.val == val)
+//            {
+//                if (head.next==null)
+//                {
+//                    prev.next= null;
+//                    break;
+//                }
+//                else
+//                {
+//                    ListNode next = head.next;
+//                    head.val = head.next.val;
+//                    head.next = next.next;
+//
+//                }
+//
+//            }
+//            prev = head;
+//            head = head.next;
+//        }
+//        return tmp;
+//    }
+}
+
+class Solution204{
+
+
+    /*
+
+    Count the number of prime numbers less than a non-negative number, n.
+
+    Example:
+
+    Input: 10
+    Output: 4
+    Explanation: There are 4 prime numbers less than 10, they are 2, 3, 5, 7.
+     */
+
+    public static void main(String[] args) {
+
+
+        int result = countPrimes(499999);
+        System.out.println(result);
+    }
+
+    public static int countPrimes(int n) {
+
+        int result = 0;
+        int tmp = n;
+        int i = 2 ;
+        if (n<2) return 0;
+        //int counter = 0;
+//        for (int iterator = n-1,j=iterator/2;iterator>1;)
+//        {
+//            if (iterator%j==0)
+//            {
+//                //counter++;
+//                if (iterator==2||iterator==3)result++;
+//                iterator--;
+//                j= iterator/2;
+//                //counter = 0;
+//            } else j--;
+//
+//
+//
+//            if (j==1)
+//            {
+//                result++;
+//                iterator--;
+//                j = iterator/2;
+//            }
+//        }
+
+
+        //TOO SLOW
+
+//        int counter= 0;
+//        for (int iterator = n-1,j=1;iterator>1;)
+//        {
+//            if (iterator%2==0&&iterator!=2)
+//            {
+//                iterator--;
+//                j=1;
+//            }
+//            else if (iterator ==2 || iterator==3)
+//            {
+//                result++;
+//                iterator--;
+//                j=1;
+//            }
+//            else if (iterator%j==0)
+//            {
+//                counter++;
+//                if (counter==2)
+//                {
+//                    iterator--;
+//                    j=1;
+//                    counter=0;
+//                }
+//                else
+//                {
+//                    j++;
+//                }
+//            }
+//            else if (j==iterator/2)
+//            {
+//                result++;
+//                counter=0;
+//                iterator--;
+//                j=1;
+//            }
+//            else
+//            {
+//                j++;
+//            }
+//        }
+
+        int count =0;
+        //  if(n==2)return 0;
+        for(int k=2;k<n;k++){
+            if(isPrime(k))count++;
+        }
+        return count ;
+
+
+
+    }
+
+    public static boolean isPrime(int n){
+
+        if(n<=1)return false;
+        for (int i=2;i*i<=n;i++){
+            if(n%i==0)return false;
+        }
+        return true;
     }
 }
 
@@ -558,6 +929,50 @@ class Solution237{
     }
 } //Solved
 
+class Solution507{
+
+    public static void main(String[] args) {
+        /*
+        We define the Perfect Number is a positive integer that is equal to the sum of all its positive divisors except itself.
+
+        Now, given an integer n, write a function that returns true when it is a perfect number and false when it is not.
+        Example:
+        Input: 28
+        Output: True
+        Explanation: 28 = 1 + 2 + 4 + 7 + 14
+        Note: The input number n will not exceed 100,000,000. (1e8)
+
+         */
+
+        /*
+
+        Success
+        Details
+        Runtime: 1511 ms, faster than 27.70% of Java online submissions for Perfect Number.
+        Memory Usage: 36.3 MB, less than 5.88% of Java online submissions for Perfect Number.
+         */
+        int num =28;
+        boolean result = checkPerfectNumber(num);
+        System.out.println(result);
+    }
+
+
+    public static boolean checkPerfectNumber(int num) {
+
+        int sum=0;
+        if (num<1) return false;
+        for (int i = num/2 ; i>0 ;i--)
+        {
+            if (num%i==0)
+            {
+                sum+=i;
+            }
+        }
+        if (sum==num) return true;
+        return false;
+    }
+}
+
 class Solution728{
 
     /*
@@ -688,6 +1103,84 @@ class Solution771 {
     }
 } //Solved
 
+class Solution804{
+
+
+    /*
+    International Morse Code defines a standard encoding where each letter is mapped to a series of dots and dashes, as follows: "a" maps to ".-", "b" maps to "-...", "c" maps to "-.-.", and so on.
+
+    For convenience, the full table for the 26 letters of the English alphabet is given below:
+
+    [".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."]
+    Now, given a list of words, each word can be written as a concatenation of the Morse code of each letter. For example, "cba" can be written as "-.-..--...", (which is the concatenation "-.-." + "-..." + ".-"). We'll call such a concatenation, the transformation of a word.
+
+    Return the number of different transformations among all words we have.
+
+    Example:
+    Input: words = ["gin", "zen", "gig", "msg"]
+    Output: 2
+    Explanation:
+    The transformation of each word is:
+    "gin" -> "--...-."
+    "zen" -> "--...-."
+    "gig" -> "--...--."
+    "msg" -> "--...--."
+
+    There are 2 different transformations, "--...-." and "--...--.".
+    Note:
+
+    The length of words will be at most 100.
+    Each words[i] will have length in range [1, 12].
+    words[i] will only consist of lowercase letters.
+     */
+
+    /*
+    Success
+    Details
+    Runtime: 2 ms, faster than 47.72% of Java online submissions for Unique Morse Code Words.
+    Memory Usage: 37.4 MB, less than 5.26% of Java online submissions for Unique Morse Code Words.
+
+     */
+
+    public static void main(String[] args) {
+
+        String[] words = {"gin","zen","gig","msg"};
+        int result = uniqueMorseRepresentations(words);
+        System.out.println(result);
+
+    }
+
+    public static int uniqueMorseRepresentations(String[] words) {
+                            //A     B     C      D    E    F      G      H     I     J     K      L
+         String[] morse = {".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..",
+
+                            //M    N     O     P      Q     R     S    T    U     V     W     X       Y      Z
+                            "--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+         int result = 0;
+         List<String> transformations = new ArrayList<>();
+         char c;
+         int charValue;
+         for (int i = 0; i < words.length;i++)
+         {
+             StringBuilder stringBuilder = new StringBuilder();
+             for (int j = 0; j< words[i].length();j++)
+             {
+                 //Extract the letter
+                  c = words[i].charAt(j);
+                  charValue = words[i].charAt(j); //Get Decimal Value of a char
+                 stringBuilder.append(morse[(97-charValue)*-1]);
+
+             }
+             if (!transformations.contains(stringBuilder.toString()))
+             {
+                 transformations.add(stringBuilder.toString());
+                 result++;
+             }
+         }
+         return  result;
+    }
+} //Solved
+
 class Solution876 {
 
     /*
@@ -724,6 +1217,76 @@ class Solution876 {
         }
         result = listNodes.get(listNodes.size()/2);
         return result;
+    }
+} //Solved
+
+class Solution942{
+
+    /*
+    Given a string S that only contains "I" (increase) or "D" (decrease), let N = S.length.
+
+    Return any permutation A of [0, 1, ..., N] such that for all i = 0, ..., N-1:
+
+    If S[i] == "I", then A[i] < A[i+1]
+    If S[i] == "D", then A[i] > A[i+1]
+
+    Example 1:
+
+    Input: "IDID"
+    Output: [0,4,1,3,2]
+    Example 2:
+
+    Input: "III"
+    Output: [0,1,2,3]
+    Example 3:
+
+    Input: "DDI"
+    Output: [3,2,0,1]
+
+    Note:
+
+    1 <= S.length <= 10000
+    S only contains characters "I" or "D".
+     */
+
+    /*
+    Success
+    Details
+    Runtime: 2 ms, faster than 93.19% of Java online submissions for DI String Match.
+    Memory Usage: 41 MB, less than 6.82% of Java online submissions for DI String Match.
+     */
+
+    public static void main(String[] args) {
+        String s = "III";
+        int[] result = diStringMatch(s);
+        System.out.println(java.util.Arrays.toString(result));
+    }
+
+    public static int[] diStringMatch(String S) {
+        int [] result = new int[S.length()+1];
+        int minIndex = 0 , maxIndex = S.length();
+        for (int i = 0;i<result.length-1;i++)
+        {
+            if (S.charAt(i)=='I')
+            {
+                result[i] = minIndex;
+                minIndex++;
+            }
+            else if (S.charAt(i)=='D')
+            {
+                result[i] = maxIndex;
+                maxIndex--;
+            }
+        }
+        if (S.charAt(S.length()-1)=='I')
+        {
+            result[result.length-1] = maxIndex;
+        }
+        else if (S.charAt(S.length()-1)=='D')
+        {
+            result[result.length-1] = minIndex;
+        }
+        return  result;
     }
 } //Solved
 
@@ -809,6 +1372,90 @@ class Solution1221 {
     }
 }
 
+class Solution1252{
+
+    /*
+    Success
+    Details
+    Runtime: 2 ms, faster than 28.71% of Java online submissions for Cells with Odd Values in a Matrix.
+    Memory Usage: 37.5 MB, less than 100.00% of Java online submissions for Cells with Odd Values in a Matrix.
+     */
+
+
+    /*
+    Given n and m which are the dimensions of a matrix initialized by zeros and given an array indices where indices[i] = [ri, ci].
+     For each pair of [ri, ci] you have to increment all cells in row ri and column ci by 1.
+    Return the number of cells with odd values in the matrix after applying the increment to all indices.
+
+
+Example 1:
+
+Input: n = 2, m = 3, indices = [[0,1],[1,1]]
+Output: 6
+Explanation: Initial matrix = [[0,0,0],[0,0,0]].
+After applying first increment it becomes [[1,2,1],[0,1,0]].
+The final matrix will be [[1,3,1],[1,3,1]] which contains 6 odd numbers.
+Example 2:
+
+Input: n = 2, m = 2, indices = [[1,1],[0,0]]
+Output: 0
+Explanation: Final matrix = [[2,2],[2,2]]. There is no odd number in the final matrix.
+
+Constraints:
+
+1 <= n <= 50
+1 <= m <= 50
+1 <= indices.length <= 100
+0 <= indices[i][0] < n
+0 <= indices[i][1] < m
+
+     */
+
+    public static void main(String[] args) {
+
+        int n = 1;
+        int m  =1;
+        int[][] indices ={{0,0},{0,0}};
+        int result = oddCells(n,m,indices);
+        System.out.println(result);
+    }
+
+    public static int oddCells(int n, int m, int[][] indices) {
+
+        int result = 0;
+        int[][] arr = new int[n][m];
+
+        for (int i = 0; i< indices.length ; i++)
+        {
+            for (int j =0 ; j< indices[i].length ; j++)
+            {
+                if (j%2==0) //The Row
+                {
+                    int[] row = arr[indices[i][j]];
+                    for (int temp=0;temp<row.length;temp++)
+                    {
+                        row[temp]++;
+                         if (row[temp]%2!=0) result++;
+                        else result--;
+                    }
+                }
+                else //The Column
+                {
+                    int temp = 0;
+                    while(temp<arr.length)
+                    {
+                        arr[temp][indices[i][j]]++;
+                        if (arr[temp][indices[i][j]]%2!=0) result++;
+                        else result--;
+                        temp++;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+} //Solved
+
 class Solution1266{
 
     public static void main(String[] args) {
@@ -872,6 +1519,122 @@ class Solution1290{
         return num;
     }
 } //Solved
+
+class Solution1309{
+
+    /*
+    Given a string s formed by digits ('0' - '9') and '#' . We want to map s to English lowercase characters as follows:
+
+    Characters ('a' to 'i') are represented by ('1' to '9') respectively.
+    Characters ('j' to 'z') are represented by ('10#' to '26#') respectively.
+    Return the string formed after mapping.
+
+    It's guaranteed that a unique mapping will always exist.
+
+    Example 1:
+
+    Input: s = "10#11#12"
+    Output: "jkab"
+    Explanation: "j" -> "10#" , "k" -> "11#" , "a" -> "1" , "b" -> "2".
+    Example 2:
+
+    Input: s = "1326#"
+    Output: "acz"
+    Example 3:
+
+    Input: s = "25#"
+    Output: "y"
+    Example 4:
+
+    Input: s = "12345678910#11#12#13#14#15#16#17#18#19#20#21#22#23#24#25#26#"
+    Output: "abcdefghijklmnopqrstuvwxyz"
+
+
+    Constraints:
+
+    1 <= s.length <= 1000
+    s[i] only contains digits letters ('0'-'9') and '#' letter.
+    s will be valid string such that mapping is always possible.
+
+     */
+
+    /*
+    Success
+    Details
+    Runtime: 1 ms, faster than 76.46% of Java online submissions for Decrypt String from Alphabet to Integer Mapping.
+    Memory Usage: 37.3 MB, less than 100.00% of Java online submissions for Decrypt String from Alphabet to Integer Mapping.
+     */
+
+    public static void main(String[] args) {
+        String s = "25#";
+        String result = freqAlphabets(s);
+        System.out.println(result);
+    }
+
+    public static String freqAlphabets(String s) {
+        StringBuilder result = new StringBuilder();
+        char tmp = 'a'+1;
+        for (int i=0;i<s.length();i++)
+        {
+            if (s.charAt(i)=='#')
+            {
+                String number = s.substring(i-2,i);
+                int toNum = Integer.parseInt(number);
+                result.delete(result.length()-2,result.length());
+                char appendChar = (char)(96+toNum);
+                result.append(appendChar);
+            }
+            else
+            {
+                char sCharAt = s.charAt(i);
+                char a = (char)(48 + sCharAt);
+                result.append(a);
+            }
+        }
+        return  result.toString();
+    }
+
+
+
+} //Solved
+
+class Solution1356{
+
+    public static void main(String[] args) {
+    int[] arr = {0,1,2,3,4,5,6,7,8};
+    int[] result = sortByBits(arr);
+        System.out.println(java.util.Arrays.toString(result));
+    }
+
+    public static int[] sortByBits(int[] arr) {
+        int[] result = new int[arr.length];
+       // int count = sb.length() - sb.toString().replace(".", "").length();
+
+        for (int i = 0; i< arr.length ; i++)
+        {
+            StringBuilder sb = new StringBuilder();
+            convert(1234, sb);
+            long java8 = sb.chars().filter(ch -> ch =='1').count();
+            for (int j = 0;j<result.length-1;)
+            {
+                
+            }
+        }
+
+        return result;
+    }
+
+    public static void convert(int n, StringBuilder sb) {
+
+        if (n > 0) {
+            sb.append(n % 2);
+            convert(n >> 1, sb);
+        } else {
+            System.out.println(sb.reverse().toString());
+        }
+    }
+
+}
 class Solution1370 {
     /*
     Given a string s. You should re-order the string using the following algorithm:
@@ -938,6 +1701,70 @@ class Solution1370 {
         return returnValue;
     }
 }
+
+class Solution1374{
+
+    /*
+    Success
+    Details
+    Runtime: 1 ms, faster than 67.95% of Java online submissions for Generate a String With Characters That Have Odd Counts.
+    Memory Usage: 37.3 MB, less than 100.00% of Java online submissions for Generate a String With Characters That Have Odd Counts.
+     */
+
+
+    /*
+    Given an integer n, return a string with n characters such that each character in such string occurs an odd number of times.
+
+    The returned string must contain only lowercase English letters. If there are multiples valid strings, return any of them.
+
+    Example 1:
+
+    Input: n = 4
+    Output: "pppz"
+    Explanation: "pppz" is a valid string since the character 'p'
+    occurs three times and the character 'z' occurs once. Note that there are many other valid strings such as "ohhh" and "love".
+
+     */
+
+    public static void main(String[] args) {
+        int numOdd = 181;
+        int numEven = 8;
+
+        System.out.println("Odd Result: "+generateTheString(numOdd));
+
+        System.out.println("Now Even: " + generateTheString(numEven));
+    }
+
+    public static String generateTheString(int n) {
+        StringBuilder stringBuilder = new StringBuilder();
+        //stringBuilder.1
+        Random random = new Random();
+        int randomResult;
+        for (int i = 0 ; i < n ;)
+        {
+
+            randomResult = random.nextInt(26);
+            char c = (char)(97+ randomResult);
+            if (stringBuilder.toString().contains(String.valueOf(c)))
+            {
+                while (n-i>=2)
+                {
+                    stringBuilder.append(c);
+                    stringBuilder.append(c);
+                    i+=2;
+                }
+
+            }
+            else
+            {
+                stringBuilder.append(c);
+                i++;
+            }
+        }
+        return  stringBuilder.toString();
+
+    }
+} //Solved
 class Solution1389 {
     public int[] createTargetArray(int[] nums, int[] index) {
         int[] result = new int[nums.length];
@@ -1398,6 +2225,494 @@ Input: s = "ab123"
         String returnValue = result.toString();
         return  returnValue;
     }
+}
+
+class Solution1422{
+
+    public static void main(String[] args) {
+        String s ="011101";
+        int result = maxScore(s);
+        System.out.println(result);
+    }
+
+    public static int maxScore(String s) {
+        int result  = 0;
+         for (int i=0,j=1;j< s.length();)
+        {
+            String left= s.substring(i,j);
+            String right = s.substring(j,s.length());
+            long cnt = left.chars().filter(num -> num == '0').count();
+            long cnt2 = right.chars().filter(num -> num == '1').count();
+            //long count = left.chars().filter(ch -> ch == '0').count();
+            //long count2 = right.chars().filter(ch -> ch == '1').count();
+            if (cnt+cnt2>result)
+            {
+                result = (int)(cnt+cnt2);
+            }
+            j++;
+        }
+        return result;
+    }
+} //Solved But not optimal at all
+
+
+class Solution1423{
+
+    public static void main(String[] args) {
+
+        int[] cardPoints = {1,2,3,4,5,6,1};
+        int k = 3;
+        int result = maxScore(cardPoints,k);
+        System.out.println(result);
+    }
+
+    public static int maxScore(int[] cardPoints, int k) {
+
+
+        int result=0;
+
+
+        return result;
+    }
+
+}
+
+class Solution1431{
+
+    public static void main(String[] args) {
+
+        int[] candies  = {2,3,5,1,3};
+        int extraCandies = 3;
+        List<Boolean> result = kidsWithCandies(candies,extraCandies);
+        System.out.println(result);
+    }
+
+    public static List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
+
+        int max=candies[0];
+        List<Boolean> result = new ArrayList<>(candies.length);
+        for (int i = 0 ; i< candies.length; i++)
+        {
+            if (candies[i]>max) max = candies[i];
+        }
+        for (int j = 0; j< candies.length; j++)
+        {
+                if (candies[j]+extraCandies>=max) result.add(true);
+                else result.add(false);
+        }
+        return  result;
+    }
+} //Solved
+
+class Solution1436{
+
+
+
+    /*
+
+    [["zGirRtGNQE","okhpFEyNpL"],["zDIDhfkQyP","skvVXzpXZT"],
+    ["jlYNctQVfl","HNFCAzAeUY"],["cRedXvY Fl","zDIDhfkQyP"],
+    ["EtRvnuwEQL","GJDNbCDoF "],["OkIHLxaunD","zGirRtGNQE"],
+    ["TUWRUvvhgA","hHJUuUyUkE"],["hjulshiBSv","KMXYhUGaWI"],
+    ["lSMZK wpJy","BAYJqiDkYQ"],["fcYwKOP Sd","jlYNctQVfl"],
+    ["uQUvIQyYzH","rTGbPgjNVV"],["HNFCAzAeUY","lSMZK wpJy"],
+    ["oIvRr MqcY","VoRQpoPPDl"],["BAYJqiDkYQ","IFdpTACiDh"],
+    ["ylLWbmsjoh","DWjaiMtibq"],["gegXGUCIiC","cqIZwtcBvh"],
+    ["dmVigKBJQr","OkIHLxaunD"],["KMXYhUGaWI","kECT zpiUa"],
+    ["hHJUuUyUkE","cRedXvY Fl"],["gyZleGIp c","hjulshiBSv"],
+    ["IFdpTACiDh","ICRxHbFMBf"],["ICRxHbFMBf","oIvRr MqcY"],
+    ["VoRQpoPPDl","ylLWbmsjoh"],["kECT zpiUa","TUWRUvvhgA"],
+    ["cqIZwtcBvh","RFQzUFTCYD"],["DWjaiMtibq","EtRvnuwEQL"],
+    ["rTGbPgjNVV","gyZleGIp c"],["qRHnsLGOZO","fcYwKOP Sd"],
+    ["GJDNbCDoF ","gegXGUCIiC"],["skvVXzpXZT","dmVigKBJQr"],
+    ["RFQzUFTCYD","uQUvIQyYzH"]]
+     */
+
+    //[["London","New York"],["New York","Lima"],["Lima","Sao Paulo"]]
+    public static void main(String[] args) {
+        List<List<String>> paths=new ArrayList<>();
+        List<String> tmp1 = new ArrayList<>();
+        tmp1.add("London");
+        tmp1.add("New York");
+        List<String> tmp2 = new ArrayList<>();
+        tmp2.add("New York");
+        tmp2.add("Lima");
+        List<String> tmp3 = new ArrayList<>();
+        tmp3.add("Lima");
+        tmp3.add("Sao Paulo");
+        paths.add(tmp1);
+        paths.add(tmp2);
+        paths.add(tmp3);
+        String result = destCity(paths);
+        System.out.println(result);
+
+    }
+
+    public static String destCity(List<List<String>> paths) {
+        String result="";
+        List<String> citiesSource = new ArrayList<>();
+        List<String> citiesDest = new ArrayList<>();
+        String path1;
+        String path2;
+        int i = 0;
+        for (List<String> tmp :  paths)
+        {
+            citiesSource.add(tmp.get(0));
+
+            if ((!citiesSource.contains(tmp.get(1)))&&(!citiesDest.contains(tmp.get(1))))
+            {
+                citiesDest.add(tmp.get(1));
+            }
+            else if (citiesDest.contains(tmp.get(0)))
+            {
+
+                citiesDest.remove(tmp.get(0));
+            }
+            //path1= tmp.get(0);
+            //path2= tmp.get(1);
+        }
+        return citiesDest.get(citiesDest.size()-1);
+    }
+}
+
+class Solution1441{
+    /*
+    Given an array target and an integer n. In each iteration, you will read a number from  list = {1,2,3..., n}.
+
+    Build the target array using the following operations:
+
+    Push: Read a new element from the beginning list, and push it in the array.
+    Pop: delete the last element of the array.
+    If the target array is already built, stop reading more elements.
+    You are guaranteed that the target array is strictly increasing, only containing numbers between 1 to n inclusive.
+
+    Return the operations to build the target array.
+
+    You are guaranteed that the answer is unique.
+
+
+
+    Example 1:
+
+    Input: target = [1,3], n = 3
+    Output: ["Push","Push","Pop","Push"]
+    Explanation:
+    Read number 1 and automatically push in the array -> [1]
+    Read number 2 and automatically push in the array then Pop it -> [1]
+    Read number 3 and automatically push in the array -> [1,3]
+    Example 2:
+
+    Input: target = [1,2,3], n = 3
+    Output: ["Push","Push","Push"]
+    Example 3:
+
+    Input: target = [1,2], n = 4
+    Output: ["Push","Push"]
+    Explanation: You only need to read the first 2 numbers and stop.
+    Example 4:
+
+    Input: target = [2,3,4], n = 4
+    Output: ["Push","Pop","Push","Push","Push"]
+
+
+    Constraints:
+
+    1 <= target.length <= 100
+    1 <= target[i] <= 100
+    1 <= n <= 100
+    target is strictly increasing.
+
+     */
+
+    /*
+    Runtime: 1 ms, faster than 51.14% of Java online submissions for Build an Array With Stack Operations.
+    Memory Usage: 40.4 MB, less than 100.00% of Java online submissions for Build an Array With Stack Operations.
+
+     */
+    public static void main(String[] args) {
+
+        int[] arr = {1,2};
+        int num = 4;
+        List<String> answer = buildArray(arr,num);
+        System.out.println(answer);
+    }
+
+    public static List<String> buildArray(int[] target, int n) {
+
+        String push = "Push";
+        String pop = "Pop";
+        List<String> answer = new ArrayList<>();
+
+        //we iterate a loop with max size of n
+        //we compare the number in the index to the size of  n , if they match we keep the number(push),if no match we pop
+        for (int i = 0,j=1;j<=n;)
+        {
+            answer.add(push);
+            if (target[i]!=j)
+            {
+                answer.add(pop);
+            }
+            else
+            {
+                i++;
+            }
+            j++;
+            if (i==target.length) break;
+        }
+        return answer;
+    }
+} //Solved
+
+class Solution1446{
+
+
+    /*
+    Given a string s, the power of the string is the maximum length of a non-empty substring that contains only one unique character.
+
+    Return the power of the string.
+
+
+
+    Example 1:
+
+    Input: s = "leetcode"
+    Output: 2
+    Explanation: The substring "ee" is of length 2 with the character 'e' only.
+    Example 2:
+
+    Input: s = "abbcccddddeeeeedcba"
+    Output: 5
+    Explanation: The substring "eeeee" is of length 5 with the character 'e' only.
+    Example 3:
+
+    Input: s = "triplepillooooow"
+    Output: 5
+    Example 4:
+
+    Input: s = "hooraaaaaaaaaaay"
+    Output: 11
+    Example 5:
+
+    Input: s = "tourist"
+    Output: 1
+
+
+    Constraints:
+
+    1 <= s.length <= 500
+    s contains only lowercase English letters.
+
+
+     */
+
+    /*
+    Success
+    Details
+    Runtime: 1 ms, faster than 100.00% of Java online submissions for Consecutive Characters.
+    Memory Usage: 37.8 MB, less than 100.00% of Java online submissions for Consecutive Characters.
+
+     */
+    public static void main(String[] args) {
+
+
+
+
+
+        /*
+
+        Input: s = "leetcode"
+        Output: 2
+        Explanation: The substring "ee" is of length 2 with the character 'e' only.
+
+         */
+
+        String s = "hooraaaaaaaaaaay";
+        int result = maxPower(s);
+        System.out.println(result);
+    }
+
+    public static int maxPower(String s) {
+
+        int result = 0;
+//        HashMap<Character,Integer> checkSum = new HashMap<Character, Integer>();
+//        for (int i = 0; i < s.length(); i++)
+//        {
+//            if (checkSum.containsKey(s.charAt(i)))
+//            {
+//                checkSum.put(s.charAt(i),checkSum.get(s.charAt(i)).intValue()+1);
+//                if (checkSum.get(s.charAt(i)).intValue()>result)
+//                {
+//                    result = checkSum.get(s.charAt(i)).intValue();
+//                }
+//            }
+//            else
+//            {
+//                checkSum.put(s.charAt(i),1);
+//            }
+//        }
+        int counter = 0;
+        for (int i = 0 ; i < s.length()-1 ; i++)
+        {
+            if (s.charAt(i) == s.charAt(i+1))
+            {
+                counter++;
+                if (counter>result)
+                {
+                    result = counter;
+                }
+            }
+            else
+            {
+                counter = 0;
+            }
+        }
+
+        return result+1;
+    }
+} //Solved
+
+
+class Solution1450{
+
+    /*
+    Example 1:
+
+    Input: startTime = [1,2,3], endTime = [3,2,7], queryTime = 4
+    Output: 1
+    Explanation: We have 3 students where:
+    The first student started doing homework at time 1 and finished at time 3 and wasn't doing anything at time 4.
+    The second student started doing homework at time 2 and finished at time 2 and also wasn't doing anything at time 4.
+    The third student started doing homework at time 3 and finished at time 7 and was the only student doing homework at time 4.
+    Example 2:
+
+    Input: startTime = [4], endTime = [4], queryTime = 4
+    Output: 1
+    Explanation: The only student was doing their homework at the queryTime.
+    Example 3:
+
+    Input: startTime = [4], endTime = [4], queryTime = 5
+    Output: 0
+    Example 4:
+
+    Input: startTime = [1,1,1,1], endTime = [1,3,2,4], queryTime = 7
+    Output: 0
+    Example 5:
+
+    Input: startTime = [9,8,7,6,5,4,3,2,1], endTime = [10,10,10,10,10,10,10,10,10], queryTime = 5
+    Output: 5
+
+
+    Constraints:
+
+    startTime.length == endTime.length
+    1 <= startTime.length <= 100
+    1 <= startTime[i] <= endTime[i] <= 1000
+    1 <= queryTime <= 1000
+
+     */
+
+    /*
+    Success
+    Details
+    Runtime: 0 ms, faster than 100.00% of Java online submissions for Number of Students Doing Homework at a Given Time.
+    Memory Usage: 39.9 MB, less than 100.00% of Java online submissions for Number of Students Doing Homework at a Given Time.
+
+     */
+
+    public static void main(String[] args) {
+
+        //Example One
+        /*
+
+        int[] startTime = {1,2,3};
+        int[] endTime = {3,2,7};
+        int queryTime = 4;
+
+         */
+
+        //Example Five
+
+
+        int[] startTime = {9,8,7,6,5,4,3,2,1};
+        int[] endTime = {10,10,10,10,10,10,10,10,10};
+        int queryTime = 5;
+
+
+        int result = busyStudent(startTime,endTime,queryTime);
+        System.out.println(result);
+    }
+
+    public static int busyStudent(int[] startTime, int[] endTime, int queryTime) {
+
+        int result = 0;
+        for (int i = 0 ; i < startTime.length ; i++)
+        {
+            if (startTime[i]<=queryTime &&endTime[i]>=queryTime)
+            {
+                result++;
+            }
+        }
+        return result;
+    }
+} //Solved
+
+class UsefulFunctions{
+
+    public static void main(String[] args) {
+        streams(); // Stream functions
+        initialize2dArray(); // initialize 2d array
+    }
+
+    public static void streams()
+    {
+        int[] candies = {2,3,4,5,1};
+        int extraCandies = 3;
+        int maximum = Arrays.stream(candies).max().orElse(0); // Get maximum value from array using streams
+        List<Boolean> list = Arrays.stream(candies).mapToObj(x -> x + extraCandies >= maximum).collect(Collectors.toList()); // map to object , stream array and for each x check if x + extraCandies greater or equal to maximum, return boolean
+        System.out.println(list);
+    }
+
+    public static void initialize2dArray()
+    {
+        int[][] indices ={{0,0},{0,0},{0,0}};
+    }
+
+    //Regular Array
+    public static void printArrayOneLine(int[] arr)
+    {
+        System.out.println(java.util.Arrays.toString(arr));
+    }
+
+    //2D Array
+    public static void printArrayOneLine(int[][] arr)
+    {
+        System.out.println(Arrays.deepToString(arr));
+    }
+
+    //Hashmap
+    public static void hashMap()
+    {
+        int result = 0;
+        String s = "leetcode";
+        HashMap<Character,Integer> checkSum = new HashMap<Character, Integer>();
+        for (int i = 0; i < s.length(); i++)
+        {
+            if (checkSum.containsKey(s.charAt(i)))
+            {
+                checkSum.put(s.charAt(i),checkSum.get(s.charAt(i)).intValue()+1);
+                if (checkSum.get(s.charAt(i)).intValue()>result)
+                {
+                    result = checkSum.get(s.charAt(i)).intValue();
+                }
+            }
+            else
+            {
+                checkSum.put(s.charAt(i),1);
+            }
+        }
+    }
+
+
 }
 
 
