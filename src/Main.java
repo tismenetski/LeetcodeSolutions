@@ -1,3 +1,7 @@
+import com.sun.source.tree.Tree;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.*;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.stream.Collectors;
@@ -127,6 +131,57 @@ class Solution2{
     }
 }
 
+class Solution3{
+
+    public static void main(String[] args) {
+
+        //String s = "abcabcbb";
+        //String s = "aab";
+        //String s = "dvdf";
+        //String s = "pwwkew";
+        //String s = "avniaj";
+        String s = "bbtablud";
+        int result = lengthOfLongestSubstring(s);
+        System.out.println(result);
+    }
+
+    public static int lengthOfLongestSubstring(String s) {
+
+        StringBuilder stringBuilder =  new StringBuilder();
+        int max = 0;
+        List<String> words = new ArrayList<>();
+        for (int i = 0; i < s.length();)
+        {
+            if (stringBuilder.indexOf(s.substring(i,i+1)) == -1)
+            {
+                stringBuilder.append(s.charAt(i));
+                if (stringBuilder.length()>max)
+                {
+                    max = stringBuilder.length();
+                }
+                i++;
+            }
+            else
+            {
+                if (words.contains(stringBuilder.toString()))
+                {
+                    i++;
+                }
+                else
+                {
+                    words.add(stringBuilder.toString());
+                    i = s.indexOf(s.substring(i,i+1))+1;
+
+                }
+                stringBuilder.replace(0,stringBuilder.length(),"");
+            }
+        }
+        return max;
+    }
+} //Not Solved
+
+
+
 class Solution4{
     public static void main(String[] args) {
         int[] nums1 = {1,3};
@@ -138,6 +193,85 @@ class Solution4{
     return 1.0;
     }
 } //Not Started
+
+class Solution14{
+
+    public static void main(String[] args) {
+        /*
+        Write a function to find the longest common prefix string amongst an array of strings.
+
+        If there is no common prefix, return an empty string "".
+
+        Example 1:
+
+        Input: ["flower","flow","flight"]
+        Output: "fl"
+        Example 2:
+
+        Input: ["dog","racecar","car"]
+        Output: ""
+        Explanation: There is no common prefix among the input strings.
+        Note:
+
+        All given inputs are in lowercase letters a-z.
+
+
+         */
+
+        /*
+        Success
+        Details
+        Runtime: 1 ms, faster than 60.37% of Java online submissions for Longest Common Prefix.
+        Memory Usage: 37.8 MB, less than 80.70% of Java online submissions for Longest Common Prefix.
+        Next challenges:
+
+
+         */
+        //String[] strs = {"flower","flow","flight"};
+        //String[] strs = {"dog","racecar","car"};
+        String[] strs = new String[0];
+        String result = longestCommonPrefix(strs);
+        System.out.println(result);
+
+    }
+
+    public static String longestCommonPrefix(String[] strs) {
+
+
+        //Break the first String to all it's permatuations: for example , "flower" -> "f","fl","flo","flow","flowe","flower"
+        //And store in data . afterwards , take each element and
+
+        //Take the first word as a whole , compare to next words , if there is a common prefix keep it, else
+        String result="";
+        StringBuilder stringBuilder = new StringBuilder("");
+        if (strs.length<1) return "";
+        stringBuilder.append(strs[0]);
+
+        for (int i = 1 ; i< strs.length ; i++)
+        {
+            int length = 0;
+            for (int j = 0 ; j< strs[i].length()&&j<stringBuilder.length() ; j++)
+            {
+                if(stringBuilder.charAt(j)==strs[i].charAt(j))
+                {
+                    length++;
+                }
+                else
+                {
+                    j=strs[i].length();
+                }
+            }
+            stringBuilder.delete(0,stringBuilder.length());
+            stringBuilder.append(strs[i].substring(0,length));
+        }
+
+
+        return stringBuilder.toString();
+
+
+    }
+
+} //Solved
 
 
 class Solution21{
@@ -344,6 +478,169 @@ class Solution26{
     }
 }
 
+class Solution27{
+
+    public static void main(String[] args) {
+
+        /*
+        Given an array nums and a value val, remove all instances of that value in-place and return the new length.
+
+        Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+
+        The order of elements can be changed. It doesn't matter what you leave beyond the new length.
+
+        Example 1:
+
+        Given nums = [3,2,2,3], val = 3,
+
+        Your function should return length = 2, with the first two elements of nums being 2.
+
+        It doesn't matter what you leave beyond the returned length.
+        Example 2:
+
+        Given nums = [0,1,2,2,3,0,4,2], val = 2,
+
+        Your function should return length = 5, with the first five elements of nums containing 0, 1, 3, 0, and 4.
+
+        Note that the order of those five elements can be arbitrary.
+
+        It doesn't matter what values are set beyond the returned length.
+        Clarification:
+
+        Confused why the returned value is an integer but your answer is an array?
+
+        Note that the input array is passed in by reference, which means modification to the input array will be known to the caller as well.
+
+        Internally you can think of this:
+
+        // nums is passed in by reference. (i.e., without making a copy)
+        int len = removeElement(nums, val);
+
+        // any modification to nums in your function would be known by the caller.
+        // using the length returned by your function, it prints the first len elements.
+        for (int i = 0; i < len; i++) {
+            print(nums[i]);
+        }
+
+
+         */
+
+
+
+        /*
+        Success
+        Details
+        Runtime: 0 ms, faster than 100.00% of Java online submissions for Remove Element.
+        Memory Usage: 38 MB, less than 5.05% of Java online submissions for Remove Element.
+        Next challenges:
+
+         */
+       //int[] nums = {0,1,2,2,3,0,4,2};
+        int[] nums = {3,2,2,3};
+        int val = 3;
+        int result = removeElement(nums,val);
+        System.out.println(result);
+    }
+
+    public static int removeElement(int[] nums, int val) {
+        int result = nums.length;
+        //System.out.println(java.util.Arrays.toString(nums));
+        //Iterate the array , once reached element = val take that element and move him to the end of array,decrease result
+        for (int i = 0  ; i < result ;i++)
+        {
+            if (nums[i]==val)
+            {
+                for (int j=i ; j<nums.length-1 ; j++)
+                {
+                    int tmp = nums[j];
+                    nums[j] = nums[j+1];
+                    nums[j+1] = tmp;
+                }
+                //if (nums[i]==val) i--;
+                result--;
+            }
+            if (nums[i]==val) i--;
+
+
+        }
+
+        //System.out.println(java.util.Arrays.toString(nums));
+        return result;
+    }
+} //Solved
+
+class Solution35{
+
+
+    /*
+
+    Given a sorted array and a target value,
+     return the index if the target is found.
+      If not, return the index where it would be if it were inserted in order.
+    You may assume no duplicates in the array.
+     */
+
+    /*
+
+    Success
+    Details
+    Runtime: 0 ms, faster than 100.00% of Java online submissions for Search Insert Position.
+    Memory Usage: 38.7 MB, less than 99.20% of Java online submissions for Search Insert Position.
+    Next challenges:
+     */
+
+
+    public static void main(String[] args) {
+        int[] nums = {1};
+        int target = 2;
+        int result = searchInsert(nums,target);
+        System.out.println(result);
+    }
+
+    public static int searchInsert(int[] nums, int target) {
+
+
+        //Traverse the array,keep index via i.
+        //3 Tests :
+        // 1. if value is smaller than 1st index -- > return 0
+        // 2. traverse the indices , if between smaller and greater values insert there
+        // 3. if greater than all values of the given array , return size of array+1
+
+
+        if (target<=nums[0]) return 0;
+        int i=0;
+        for (; i<nums.length ;i++)
+        {
+            if (nums[i]>=target) return i;
+        }
+
+
+        return i;
+
+
+
+        /*
+
+                       //Traverse the array,keep index via i.
+        //3 Tests :
+        // 1. if value is smaller than 1st index -- > return 0
+        // 2. traverse the indices , if between smaller and greater values insert there
+        // 3. if greater than all values of the given array , return size of array+1
+
+
+        if (target<=nums[0]) return 0;
+        int i=1;
+        for (; i<nums.length-1 ;i++)
+        {
+            if (nums[i]>=target&&nums[i-1]<=target) return i;
+        }
+
+
+        return i+1;
+         */
+    }
+} //Solved
+
 class Solution37{
 
     public static void main(String[] args) {
@@ -386,6 +683,71 @@ class Solution37{
         return false;
     }
 
+}
+
+class Solution66{
+
+    public static void main(String[] args) {
+        //int[] digits = {1,2,3};
+        //int[] digits = {4,3,2,1};
+        //int[] digits = {9};
+        //int[] digits = {9,8,7,6,5,4,3,2,1,0};
+        int[] digits  = {7,2,8,5,0,9,1,2,9,5,3,6,6,7,3,2,8,4,3,7,9,5,7,7,4,7,4,9,4,7,0,1,1,1,7,4,0,0,6};
+        int[] result = plusOne(digits);
+        System.out.println(java.util.Arrays.toString(result));
+    }
+
+    public static int[] plusOne(int[] digits) {
+        BigInteger b = new BigInteger("0");
+        BigInteger multiplierBig = new BigInteger("1");
+        int size = 0;
+
+        for (int i = digits.length-1 ; i>= 0 ; i--)
+        {
+            b = b.add((BigInteger.valueOf(digits[i])).multiply(multiplierBig));
+            multiplierBig = multiplierBig.multiply(BigInteger.valueOf(10));
+            size++;
+        }
+        //Big Decimal Check if size of number grown by 1
+        int bigDecimalLength = b.toString().length();
+        b = b.add(BigInteger.valueOf(1));
+        if (bigDecimalLength<b.toString().length())
+        {
+            size++;
+        }
+        int[] newArr = new int[size];
+
+        BigInteger temporary = b;
+        int j = newArr.length-1;
+        while(!temporary.equals(BigInteger.ZERO))
+        {
+            temporary= temporary.mod(BigInteger.valueOf(10));
+            newArr[j] = temporary.intValue();
+            b = b.divide(BigInteger.valueOf(10));
+            temporary = b ;
+            j--;
+        }
+
+        return newArr;
+    }
+} //Solved - Awful Running time(BigInteger)
+
+class Solution70{
+
+    public static void main(String[] args) {
+
+        int n = 2;
+        int result = climbStairs(n);
+        System.out.println(result);
+    }
+
+    public static int climbStairs(int n) {
+
+        int result = 0;
+        
+
+        return result;
+    }
 }
 
 class Solution83{
@@ -971,6 +1333,104 @@ class Solution507{
         if (sum==num) return true;
         return false;
     }
+}
+
+class Solution617{
+
+    public static void main(String[] args) {
+
+
+        //First Tree
+        TreeNode t1 = new TreeNode(1);
+        TreeNode t12 = new TreeNode(3);
+        TreeNode t13 = new TreeNode(2);
+        TreeNode t14 = new TreeNode(5);
+        t1.left = t12;
+        t1.right = t13;
+        t12.left = t14;
+
+        //Second Tree
+        TreeNode t2 = new TreeNode(2);
+        TreeNode t22 = new TreeNode(1);
+        TreeNode t23 = new TreeNode(3);
+        TreeNode t24 = new TreeNode(4);
+        TreeNode t25 = new TreeNode(7);
+        t2.left = t22;
+        t22.right = t24;
+        t2.right = t23;
+        t23.right = t25;
+
+        //Printing Test
+        t1.printInorder(t1);
+        System.out.println();
+        t1.printPreorder(t1);
+        System.out.println();
+        t1.printPostorder(t1);
+        System.out.println();
+        t2.printInorder(t2);
+        TreeNode result = mergeTrees(t1,t2);
+        result.printPreorder(result);
+
+
+    }
+
+    public static TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
+
+        TreeNode result = t1;
+        merge(t1,t2);
+        return result;
+
+    }
+
+    static void merge (TreeNode t1, TreeNode t2)
+    {
+        if (t1==null&&t2==null)
+            return;
+
+        if (t1==null&&t2!=null)
+        {
+            t1 = t2;
+        }
+
+        else if (t1!=null&&t2!=null)
+        {
+            t1.val +=t2.val;
+        }
+
+
+        if (t1.left!=null&&t2.left!=null)
+        merge(t1.left,t2.left);
+
+
+        if (t1==null&&t2!=null)
+        {
+            t1 = t2;
+        }
+        else if (t1!=null&&t2!=null)
+        {
+            t1.val += t2.val;
+        }
+        merge(t1.right,t2.right);
+    }
+
+    /* Given a binary tree, print its nodes according to the
+"bottom-up" postorder traversal. */
+    void printPostorder(TreeNode node)
+    {
+        if (node == null)
+            return;
+
+
+        // first recur on left subtree
+        printPostorder(node.left);
+
+        // then recur on right subtree
+        printPostorder(node.right);
+
+        // now deal with the node
+        System.out.print(node.val + " ");
+    }
+
 }
 
 class Solution728{
@@ -2656,6 +3116,182 @@ class Solution1450{
     }
 } //Solved
 
+class Solution1451{
+
+    public static void main(String[] args) {
+
+
+        String text = "Keep calm and code on";
+        String result = arrangeWords(text);
+        System.out.println(result);
+
+    }
+
+    public static String arrangeWords(String text) {
+        StringBuilder result = new StringBuilder();
+        StringBuilder tmp = new StringBuilder(text);
+        System.out.println(tmp);
+        Map<Integer,List<String>> sizeWord = new HashMap<Integer,List<String>>();
+
+
+        //Temp Variables to store size and String
+        StringBuilder tempWord = new StringBuilder();
+        int tempWordSizeCounter = 0;
+
+        //Handling the word builder and indexing
+        for (int i = 0 ; i<text.length() ; i++)
+        {
+            if (text.charAt(i)!=' ')
+            {
+                tempWord.append(text.charAt(i));
+                tempWordSizeCounter++;
+                if (i==text.length()-1)
+                {
+                    manageMap(sizeWord,tempWordSizeCounter,tempWord);
+                }
+            }
+            else
+            {
+                manageMap(sizeWord,tempWordSizeCounter,tempWord);
+                tempWordSizeCounter=0;
+                tempWord.replace(0,tempWord.length(),"");
+            }
+        }
+
+        //Iterate through each map value and append to a string
+        int i = 0;
+        for (Map.Entry<Integer, List<String>> pair : sizeWord.entrySet()) {
+
+            for (String s:pair.getValue())
+            {
+                if (i==0)
+                {
+                    String temp =s.substring(0,1).toUpperCase()+s.substring(1);
+                    result.append(temp+" ");
+
+                }
+                else
+                {
+                    result.append(s+" ");
+                }
+              i++;
+            }
+        }
+
+
+
+        //Increasing order - if same length return at the original order
+
+        //We Can use 4 major data parameters like : start,end indices of each word, word length , and the word itself.
+
+
+        sizeWord.forEach((key, value) -> System.out.println(key + ":" + value));
+        //First letter Should Be capital -> Can be done at the end of the process
+        result.substring(0,0).toUpperCase();
+        return result.substring(0,result.length()-1);
+    }
+
+    public static void manageMap(Map<Integer,List<String>> sizeWord,int tempWordSizeCounter,StringBuilder tempWord)
+    {
+        String s = tempWord.substring(0,tempWord.length()).toLowerCase();
+        if (sizeWord.containsKey(tempWordSizeCounter))
+        {
+            List<String> list = sizeWord.get(tempWordSizeCounter);
+            list.add(s);
+            sizeWord.put(tempWordSizeCounter,list);
+        }
+        else
+        {
+            List<String> list = new ArrayList<>();
+            list.add(s);
+            sizeWord.put(tempWordSizeCounter,list);
+        }
+    }
+} //Solved- Medium
+
+class Solution1491{
+
+    //Success
+    //Details
+    //Runtime: 0 ms, faster than 100.00% of Java online submissions for Average Salary Excluding the Minimum and Maximum Salary.
+    //Memory Usage: 39 MB, less than 100.00% of Java online submissions for Average Salary Excluding the Minimum and Maximum Salary.
+    //Next challenges:
+
+    public static void main(String[] args) {
+
+        int[] arr = {6000,5000,4000,3000,2000,1000};
+        double result = average(arr);
+        System.out.println(result);
+    }
+
+    public static double average(int[] salary)
+    {
+        double result;
+        int lowest = salary[0];
+        int highest = salary[0];
+        int divisor = 0;
+        int sum = 0;
+        for (int i = 0; i< salary.length ; i++)
+        {
+        if (salary[i]>=highest)
+        {
+            highest = salary[i];
+        }
+        else if (salary[i]<=lowest)
+        {
+            lowest = salary[i];
+        }
+        sum+= salary[i];
+        divisor++;
+
+        }
+        sum-=lowest+highest;
+
+        result = (double) sum/(divisor-2);
+
+        return result;
+    }
+} //Solved - Easy
+
+
+class Solution1496{
+
+    public static void main(String[] args) {
+        
+    }
+} //Solved -Easy
+
+class Solution1512{
+
+
+    /*
+    Runtime: 2 ms, faster than 100.00% of Java online submissions for Number of Good Pairs.
+    Memory Usage: 38.8 MB, less than 100.00% of Java online submissions for Number of Good Pairs.
+
+
+     */
+    public static void main(String[] args) {
+        int[] nums = {1,2,3};
+        System.out.println(numIdenticalPairs(nums));
+    }
+
+    public static int numIdenticalPairs(int[] nums) {
+        int result=0;
+        for (int i = 0 , j = 1;i<nums.length-1&&j<nums.length;)
+        {
+            if (nums[i]==nums[j]) result++;
+            j++;
+            if (j==nums.length)
+            {
+                i++;
+                j=i+1;
+            }
+        }
+
+        return result;
+    }
+}
+
 class UsefulFunctions{
 
     public static void main(String[] args) {
@@ -2717,7 +3353,66 @@ class UsefulFunctions{
 
 
 
+class TreeNode{
 
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int x)
+    {
+        val = x;
+    }
+
+    /* Given a binary tree, print its nodes according to the
+  "bottom-up" postorder traversal. */
+    void printPostorder(TreeNode node)
+    {
+        if (node == null)
+            return;
+
+        // first recur on left subtree
+        printPostorder(node.left);
+
+        // then recur on right subtree
+        printPostorder(node.right);
+
+        // now deal with the node
+        System.out.print(node.val + " ");
+    }
+
+    /* Given a binary tree, print its nodes in inorder*/
+    void printInorder(TreeNode node)
+    {
+        if (node == null)
+            return;
+
+        /* first recur on left child */
+        printInorder(node.left);
+
+        /* then print the data of node */
+        System.out.print(node.val + " ");
+
+        /* now recur on right child */
+        printInorder(node.right);
+    }
+
+    /* Given a binary tree, print its nodes in preorder*/
+    void printPreorder(TreeNode node)
+    {
+        if (node == null)
+            return;
+
+        /* first print data of node */
+        System.out.print(node.val + " ");
+
+        /* then recur on left sutree */
+        printPreorder(node.left);
+
+        /* now recur on right subtree */
+        printPreorder(node.right);
+
+    }
+}
 
 
 class Python {
