@@ -1,4 +1,5 @@
 import com.sun.source.tree.Tree;
+import org.w3c.dom.ls.LSOutput;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -3209,6 +3210,55 @@ class Solution1451{
     }
 } //Solved- Medium
 
+class Solution1470{
+
+
+    /*
+    Success
+    Details
+    Runtime: 0 ms, faster than 100.00% of Java online submissions for Shuffle the Array.
+    Memory Usage: 39.3 MB, less than 100.00% of Java online submissions for Shuffle the Array.
+
+     */
+    public static void main(String[] args) {
+
+        int[] nums = {1,2,3,4,4,3,2,1};
+        nums = shuffle(nums,4);
+        System.out.println(java.util.Arrays.toString(nums));
+    }
+
+    public static int[] shuffle(int[] nums, int n) {
+
+        int[] arrayEnd = new int[n];
+        for (int i = 0;i<n;i++)
+        {
+            arrayEnd[i] = nums[nums.length-n+i];
+        }
+        int[] arrayStart = new int[n];
+        for (int i=0;i<n;i++)
+        {
+            arrayStart[i] = nums[i];
+        }
+        for (int i=0,j=0,k=0;i< arrayStart.length;)
+        {
+            if (i<=j)
+            {
+                nums[k] = arrayStart[i];
+                k++;
+                i++;
+            }
+            else
+            {
+                nums[k] = arrayEnd[j];
+                k++;
+                j++;
+            }
+        }
+        System.out.println(java.util.Arrays.toString(nums));
+        return nums;
+    }
+} //Solved -Easy - Time: 20 Minutes
+
 class Solution1491{
 
     //Success
@@ -3261,6 +3311,111 @@ class Solution1496{
     }
 } //Solved -Easy
 
+class Solution1502{
+
+    public static void main(String[] args) {
+
+
+        int[] arr = {3,5,1};
+        System.out.println(canMakeArithmeticProgression(arr));
+    }
+
+    public static boolean canMakeArithmeticProgression(int[] arr) {
+
+        int min = arr[0];
+        int max = arr[0];
+        for (int i = 1 ; i < arr.length ; i++)
+        {
+            if (arr[i]>max) max = arr[i];
+            if (arr[i]<min) min = arr[i];
+
+        }
+        System.out.println("min: " + min);
+        System.out.println("max: " + max);
+        int diff =( min + max ) / arr.length;
+        System.out.println("diff: " + diff);
+
+        for (int i = 0 , j = 1 ; i < arr.length ;)
+        {
+            if (arr[i] == min && j!=arr.length)
+            {
+                if ((arr[i] + diff) == arr[j])
+                {
+                    i++;
+                    j=i+1;
+                }
+            }
+            else if (arr[i]== max && j!=arr.length)
+            {
+                if ((arr[i] - diff) == arr[j])
+                {
+                    i++;
+                    j=i+1;
+                }
+                else
+                {
+                    j++;
+                }
+            }
+            else if (arr[i]+diff == arr[j] &&j!=arr.length)
+            {
+                i++;
+                j=i+1;
+            }
+            else if (j==arr.length) return false;
+        }
+
+
+
+        return true;
+    }
+}
+
+class Solution1507{
+
+    /*
+    Success
+    Details
+    Runtime: 6 ms, faster than 100.00% of Java online submissions for Reformat Date.
+    Memory Usage: 38.1 MB, less than 100.00% of Java online submissions for Reformat Date.
+
+     */
+    public static void main(String[] args) {
+        String date = "26th May 1960";
+        System.out.println(reformatDate(date));
+    }
+
+    public static String reformatDate(String date) {
+        List<String> places = Arrays.asList("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+        String year = date.substring(date.length()-4,date.length());
+        String[] splited = date.trim().split("\\s+");
+        System.out.println(java.util.Arrays.toString(splited));
+        String day="0";
+        if (splited[0].length()==4)
+        {
+            day = splited[0].substring(0,2);
+        }
+        else
+        {
+            day = day.concat(splited[0].substring(0,1));
+        }
+        System.out.println(day);
+        int month = places.indexOf(splited[1].trim());
+        String months="";
+        if (month<9)
+        {
+            months = months.concat("0").concat(String.valueOf(month+1));
+        }
+        else
+        {
+            months =  months.concat(String.valueOf(month+1));
+        }
+        System.out.println(months);
+        String result = year.concat("-").concat(months).concat("-").concat(day);
+        return result;
+    }
+} //Solved - Easy
+
 class Solution1512{
 
 
@@ -3290,7 +3445,65 @@ class Solution1512{
 
         return result;
     }
-}
+} //Solved - Easy
+
+class Solution1518{
+
+    public static void main(String[] args) {
+
+
+        /*
+        Success
+        Details
+        Runtime: 0 ms, faster than 100.00% of Java online submissions for Water Bottles.
+        Memory Usage: 38.3 MB, less than 100.00% of Java online submissions for Water Bottles.
+        Next challenges:
+
+
+         */
+
+        int result = numWaterBottles(19,4);
+        System.out.println(result);
+
+    }
+
+    public static int numWaterBottles(int numBottles, int numExchange) {
+
+//        int drank = 0;
+//        int recycled = 0;
+//        int remainder = 0;
+//        while(numBottles>0)
+//        {
+//            drank += numBottles; //17
+//            recycled = (numBottles+remainder) / numExchange; // 5
+//            drank+= recycled; // 22
+//            if (numBottles>numExchange)
+//            remainder = numBottles % numExchange; // 2
+//            numBottles = (recycled + remainder)/numExchange; // numBottles =( 5 + 2 ) / 3 = 2
+//            remainder =  (recycled + remainder)%numExchange; //1
+//        }
+//        return drank;
+
+
+        int storeValue = numBottles;
+        int recycledBottles = 0;
+        int unUsedEmptyBottles = 0;
+        int drankBottles = 0;
+        while(numBottles>0)
+        {
+            drankBottles+= numBottles; //Drink the water
+            recycledBottles = (numBottles+unUsedEmptyBottles) / numExchange; // Take all the drank and unused bottles and get from them new bottles
+            drankBottles+= recycledBottles;
+            if (unUsedEmptyBottles==0)
+            unUsedEmptyBottles+= recycledBottles + (numBottles+unUsedEmptyBottles) % numExchange;
+            numBottles = unUsedEmptyBottles / numExchange;
+            unUsedEmptyBottles = unUsedEmptyBottles % numExchange;
+
+
+        }
+        return drankBottles;
+    }
+} // Solved - Time : 4 Hours
 
 class UsefulFunctions{
 
