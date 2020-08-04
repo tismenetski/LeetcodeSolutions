@@ -3259,6 +3259,42 @@ class Solution1470{
     }
 } //Solved -Easy - Time: 20 Minutes
 
+class Solution1486{
+
+    public static void main(String[] args) {
+        int result = xorOperation(4,3);
+        System.out.println(result);
+    }
+
+    public static int xorOperation(int n, int start) {
+
+
+
+        /*
+
+        Success
+        Details
+        Runtime: 0 ms, faster than 100.00% of Java online submissions for XOR Operation in an Array.
+        Memory Usage: 38 MB, less than 100.00% of Java online submissions for XOR Operation in an Array.
+         */
+        int[] nums = new int[n];
+        for (int i=0;i<nums.length;i++)
+        {
+            nums[i] = start + 2*i;
+        }
+        int result = nums[0];
+
+        for (int i=1;i<nums.length;i++)
+        {
+            result^=nums[i];
+        }
+
+
+        return result;
+    }
+} //Solved -Easy - Time: 40 Minutes
+
+
 class Solution1491{
 
     //Success
@@ -3504,6 +3540,88 @@ class Solution1518{
         return drankBottles;
     }
 } // Solved - Time : 4 Hours
+
+
+class Solution1528{
+    public static void main(String[] args) {
+        int[]  arr = {4,5,6,7,0,2,1,3};
+        String s = restoreString("codeleet",arr);
+        System.out.println(s);
+    }
+
+    public static String restoreString(String s, int[] indices) {
+        StringBuilder stringBuilder = new StringBuilder();
+        char[] charArray = new char[s.length()];
+//        for (int i = 0 , j = 0 ; i < s.length() ;)
+//        {
+//            if (indices[j]==i)
+//            {
+//                stringBuilder.append(s.charAt(j));
+//                i++;
+//            }
+//            else
+//            {
+//                j++;
+//                if (j==s.length())
+//                {
+//                    j=0;
+//                }
+//            }
+//        }
+//        return  stringBuilder.toString();
+
+        //This solution is better than mine , it takes the position of the letter and place it inside i index in char array
+        //for exaple indices[0] = 4,letter 'c' , so it places inside index 4 in the char array the letter c. this way no letter position get skipped
+        for(int i = 0; i < indices.length; i++) {
+            int pos = indices[i];
+            charArray[pos] = s.charAt(i);
+        }
+        return String.valueOf(charArray);
+    }
+} //Solved - Easy Time : 20 Minutes
+
+class Solution1534{
+
+    public static void main(String[] args) {
+        int[] arr = {1,1,2,2,3};
+        int a  = 0 , b = 0 , c = 1;
+        int result  = countGoodTriplets(arr,a,b,c);
+        System.out.println(result);
+    }
+
+    public static int countGoodTriplets(int[] arr, int a, int b, int c) {
+        int result = 0;
+
+        for (int i = 0 , j= i+1 , k = i+2; i< arr.length-2;)
+        {
+            if (helperMethod(arr[i],arr[j],a)&&helperMethod(arr[j],arr[k],b)&&helperMethod(arr[i],arr[k],c))
+            {
+                result++;
+            }
+            k++;
+            if (k==arr.length)
+            {
+                j++;
+                if (j==arr.length-1)
+                {
+                    i++;
+                    j=i+1;
+                }
+                k=j+1;
+            }
+        }
+        return result;
+
+
+    }
+
+    public static boolean helperMethod(int num1,int num2 , int comparable)
+    {
+        return Math.abs(num1-num2) <= comparable ? true: false;
+    }
+} // Solved Easy Time : 15 Mitues
+
+
 
 class UsefulFunctions{
 
